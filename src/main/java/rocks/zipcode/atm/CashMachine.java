@@ -13,6 +13,7 @@ public class CashMachine {
 
     private final Bank bank;
     private AccountData accountData = null;
+    private String error = null;
 
     public CashMachine(Bank bank) {
         this.bank = bank;
@@ -55,7 +56,14 @@ public class CashMachine {
 
     @Override
     public String toString() {
-        return accountData != null ? accountData.toString() : "Try account 1000 or 2000 and click submit.";
+        if (accountData != null && error == null) {
+            return accountData.toString();
+        } else if (accountData != null) {
+            String errorMessage = error;
+            error = null;
+            return errorMessage;
+        }
+        return  "Try account 1000, 1500, or 2000 and click submit.";
     }
 
     private <T> void tryCall(Supplier<ActionResult<T> > action, Consumer<T> postAction) {
@@ -66,10 +74,12 @@ public class CashMachine {
                 postAction.accept(data);
             } else {
                 String errorMessage = result.getErrorMessage();
+                error = "Error: " + result.getErrorMessage();
                 throw new RuntimeException(errorMessage);
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+
         }
     }
 }
