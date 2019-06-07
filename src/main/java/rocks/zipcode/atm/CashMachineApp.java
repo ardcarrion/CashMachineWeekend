@@ -97,25 +97,34 @@ public class CashMachineApp extends Application {
         btnCancel.setPrefWidth(250);
         btnCancel.setAlignment(Pos.CENTER);
 
+        Button btnNewAcc = new Button("create new account");
+        btnNewAcc.setPrefWidth(250);
+        btnNewAcc.setPadding(new Insets(3));
+        btnNewAcc.setStyle("-fx-text-fill: #0000ff");
+        btnNewAcc.setAlignment(Pos.CENTER);
+
         Button btnLogIn = new Button("LOG IN");
+        btnLogIn.setDefaultButton(true);
         btnLogIn.setOnAction(event -> {
 
-            if (loginTF.getText().equals("login")&&passTF.getText().equals("pass")) {
+            if (loginTF.getText().equals("admin")&&passTF.getText().equals("pass")) {
                 areaInfo.setText("Welcome to the ATM");
                 loginWindow.close();
                 stage.show();
             }
+            else {
 
-            Alert wrongCredentials = new Alert(Alert.AlertType.ERROR);
+                Alert wrongCredentials = new Alert(Alert.AlertType.ERROR);
                 wrongCredentials.setTitle("Attention!");
                 wrongCredentials.setHeaderText("Login/Password doesn't match");
                 wrongCredentials.setContentText("Provided information doesn't match our system, \nplease, try again or press cancel to exit");
                 wrongCredentials.showAndWait();
+            }
         });
 
         btnLogIn.setPrefWidth(250);
         btnLogIn.setAlignment(Pos.CENTER);
-        VBox vbox = new VBox(10, inforLabel,loginLabel, loginTF, passLabel, passTF,btnLogIn,btnCancel);
+        VBox vbox = new VBox(10, inforLabel,loginLabel, loginTF, passLabel, passTF,btnLogIn,btnCancel,btnNewAcc);
         vbox.setPadding(new Insets(20));
 
 
@@ -133,13 +142,12 @@ public class CashMachineApp extends Application {
         stage.setScene(new Scene(createContent()));
         stage.close();
 
-
-
-        // New window (Stage)
-
-        loginWindow.setTitle("Second Stage");
+        //login window
+        loginWindow.setTitle("Login Window");
         loginWindow.setScene(createLoginWindow());
         loginWindow.show();
+
+        //create new account
     }
 
     public static void main(String[] args) {
