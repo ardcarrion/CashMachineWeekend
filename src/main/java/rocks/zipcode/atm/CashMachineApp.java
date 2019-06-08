@@ -45,10 +45,8 @@ public class CashMachineApp extends Application {
 
 
 
-        // create a input stream
-       // FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
-        // create a image
-        //Image image = new Image(input);
+        FileInputStream input = new FileInputStream("src/main/resources/zipcodeLogo.png");
+        Image image = new Image(input);
 
 
 
@@ -101,7 +99,7 @@ public class CashMachineApp extends Application {
 
         flowpane.getChildren().add(btnLoan);
 
-        //flowpane.getChildren().add(new ImageView(image));
+        flowpane.getChildren().add(new ImageView(image));
 
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
