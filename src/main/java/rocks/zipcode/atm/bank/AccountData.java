@@ -22,6 +22,9 @@ public final class AccountData {
         this.password = password;
 
     }
+    public String getPassword() {
+        return password;
+    }
 
     public int getId() {
         return id;
@@ -54,7 +57,5 @@ public final class AccountData {
                 "\nLoan Amount Due " + loan;
     }
 
-    public String getPassword() {
-        return password;
-    }
+
 }
