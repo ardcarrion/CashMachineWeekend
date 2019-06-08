@@ -40,10 +40,10 @@ public class CashMachineApp extends Application {
         vbox.setStyle("-fx-background-color: #B3F239");
 
 
-        // create a input stream
-        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
-        // create a image
-        Image image = new Image(input);
+//        // create a input stream
+//        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
+//        // create a image
+//        Image image = new Image(input);
 
 
 
@@ -79,6 +79,13 @@ public class CashMachineApp extends Application {
 
             areaInfo.setText(cashMachine.toString());
         });
+//        Button btnLoan = new Button("Loan");
+//        btnSubmit.setOnAction(e -> {
+//            int id = Integer.parseInt(field.getText());
+//            cashMachine.login(id);
+//
+//            areaInfo.setText(cashMachine.toString());
+//        });
 
         FlowPane flowpane = new FlowPane();
 
@@ -86,7 +93,8 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
-        flowpane.getChildren().add(new ImageView(image));
+        //flowpane.getChildren().add(btnLoan);
+       // flowpane.getChildren().add(new ImageView(image));
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
     }
@@ -168,3 +176,6 @@ public class CashMachineApp extends Application {
         launch(args);
     }
 }
+//Add option when customer tries to withdraw more then they have offer a loan.
+// Buy stocks use random to set stock prices
+//implment tooltips
