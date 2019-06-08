@@ -55,6 +55,13 @@ public class CashMachineApp extends Application {
 
             areaInfo.setText(cashMachine.toString());
         });
+        Button btnLoan = new Button("Loan");
+        btnSubmit.setOnAction(e -> {
+            int id = Integer.parseInt(field.getText());
+            cashMachine.login(id);
+
+            areaInfo.setText(cashMachine.toString());
+        });
 
         FlowPane flowpane = new FlowPane();
 
@@ -62,6 +69,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
+        flowpane.getChildren().add(btnLoan);
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
     }
@@ -76,3 +84,6 @@ public class CashMachineApp extends Application {
         launch(args);
     }
 }
+//Add option when customer tries to withdraw more then they have offer a loan.
+// Buy stocks use random to set stock prices
+//implment tooltips
