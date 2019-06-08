@@ -10,14 +10,16 @@ public final class AccountData {
     private final String email;
     private final Integer loan;
     private final int balance;
+    private final String password;
 
 
-    AccountData(int id, String name, String email, int balance,Integer loan) {
+    AccountData(int id, String name, String email, String password, int balance,Integer loan) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.balance = balance;
         this.loan = loan;
+        this.password = password;
 
     }
 
@@ -50,5 +52,9 @@ public final class AccountData {
                 "Email: " + email + '\n' +
                 "Balance: " + balance +
                 "\nLoan Amount Due " + loan;
+    }
+
+    public String getPassword() {
+        return password;
     }
 }
