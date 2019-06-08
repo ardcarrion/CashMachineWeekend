@@ -40,10 +40,10 @@ public class CashMachineApp extends Application {
         vbox.setStyle("-fx-background-color: #B3F239");
 
 
-        // create a input stream
-        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
-        // create a image
-        Image image = new Image(input);
+//        // create a input stream
+//        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
+//        // create a image
+//        Image image = new Image(input);
 
 
 
@@ -93,11 +93,8 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
-<<<<<<< HEAD
         //flowpane.getChildren().add(btnLoan);
-=======
-        flowpane.getChildren().add(new ImageView(image));
->>>>>>> ae543430e89002d6a6917288d6fb6c01ca7f6706
+       // flowpane.getChildren().add(new ImageView(image));
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
     }
