@@ -26,7 +26,6 @@ import java.io.FileNotFoundException;
  * @author ZipCodeWilmington
  */
 public class CashMachineApp extends Application {
-    boolean isVisible = false;
 
     private TextArea areaInfo = new TextArea();
     private Stage loginWindow = new Stage();
@@ -39,6 +38,15 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 600);
         vbox.setStyle("-fx-background-color: #B3F239");
+
+
+        // create a input stream
+        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/java/zipcodeLogo.png");
+
+        // create a image
+        Image image = new Image(input);
+
+
 
         Button btnSubmit = new Button("Set Account ID");
         btnSubmit.setOnAction(e -> {
@@ -79,6 +87,7 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
+        flowpane.getChildren().add(new ImageView(image));
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
     }
@@ -104,8 +113,6 @@ public class CashMachineApp extends Application {
             loginWindow.close();
         });
         btnCancel.setPrefWidth(250);
-        btnCancel.setAlignment(Pos.CENTER);
-
         Button btnNewAcc = new Button("create new account");
         btnNewAcc.setPrefWidth(250);
         btnNewAcc.setPadding(new Insets(3));
@@ -132,7 +139,6 @@ public class CashMachineApp extends Application {
         });
 
         btnLogIn.setPrefWidth(250);
-        btnLogIn.setAlignment(Pos.CENTER);
         VBox vbox = new VBox(10, inforLabel,loginLabel, loginTF, passLabel, passTF,btnLogIn,btnCancel,btnNewAcc);
         vbox.setPadding(new Insets(20));
 
