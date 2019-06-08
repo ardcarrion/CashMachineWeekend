@@ -41,9 +41,9 @@ public class CashMachineApp extends Application {
 
 
         // create a input stream
-        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
+       // FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
         // create a image
-        Image image = new Image(input);
+        //Image image = new Image(input);
 
 
 
@@ -79,13 +79,13 @@ public class CashMachineApp extends Application {
 
             areaInfo.setText(cashMachine.toString());
         });
-//        Button btnLoan = new Button("Loan");
-//        btnSubmit.setOnAction(e -> {
-//            int id = Integer.parseInt(field.getText());
-//            cashMachine.login(id);
-//
-//            areaInfo.setText(cashMachine.toString());
-//        });
+        Button btnLoan = new Button("Loan");
+        btnSubmit.setOnAction(e -> {
+            int id = Integer.parseInt(field.getText());
+            cashMachine.login(id);
+
+            areaInfo.setText(cashMachine.toString());
+        });
 
         FlowPane flowpane = new FlowPane();
 
@@ -93,11 +93,11 @@ public class CashMachineApp extends Application {
         flowpane.getChildren().add(btnDeposit);
         flowpane.getChildren().add(btnWithdraw);
         flowpane.getChildren().add(btnExit);
-<<<<<<< HEAD
-        //flowpane.getChildren().add(btnLoan);
-=======
-        flowpane.getChildren().add(new ImageView(image));
->>>>>>> ae543430e89002d6a6917288d6fb6c01ca7f6706
+
+        flowpane.getChildren().add(btnLoan);
+
+        //flowpane.getChildren().add(new ImageView(image));
+
         vbox.getChildren().addAll(field, flowpane, areaInfo);
         return vbox;
     }
