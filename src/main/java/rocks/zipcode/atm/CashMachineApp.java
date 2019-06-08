@@ -3,6 +3,11 @@ package rocks.zipcode.atm;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -11,6 +16,11 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.image.Image ;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @author ZipCodeWilmington
@@ -25,11 +35,10 @@ public class CashMachineApp extends Application {
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
 
-    private Parent createContent() {
+    private Parent createContent() throws FileNotFoundException {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 600);
-
-
+        vbox.setStyle("-fx-background-color: #B3F239");
 
         Button btnSubmit = new Button("Set Account ID");
         btnSubmit.setOnAction(e -> {
@@ -101,7 +110,7 @@ public class CashMachineApp extends Application {
         btnNewAcc.setPrefWidth(250);
         btnNewAcc.setPadding(new Insets(3));
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
-        btnNewAcc.setAlignment(Pos.CENTER);
+
 
         Button btnLogIn = new Button("LOG IN");
         btnLogIn.setDefaultButton(true);
@@ -130,7 +139,7 @@ public class CashMachineApp extends Application {
 
         StackPane secondaryLayout = new StackPane();
         secondaryLayout.getChildren().addAll(vbox);
-        Scene secondScene = new Scene(secondaryLayout, 300, 300);
+        Scene secondScene = new Scene(secondaryLayout, 300, 330);
 
 
         return secondScene;
