@@ -143,11 +143,9 @@ public class CashMachineApp extends Application {
             Bank bank = new Bank();
             Integer loginID = Integer.valueOf(loginTF.getText());
             ActionResult<AccountData> account = bank.getAccountById(loginID);
-            String password = account.getData().getPassword();
-            if (!account.equals(null) && password.equals(passTF.getText())) {
+            if ((account != null) && account.getData().getPassword().equals(passTF.getText())) {
 //            if (loginTF.getText().equals("")&&passTF.getText().equals("")) {
                 areaInfo.setText("Welcome to the ATM");
-
                 loginWindow.close();
                 stage.show();
             }
