@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import rocks.zipcode.atm.bank.Account;
+import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -38,6 +40,9 @@ public class CashMachineApp extends Application {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 600);
         vbox.setStyle("-fx-background-color: #B3F239");
+        vbox.setPadding(new Insets(30));
+        //vbox.setStyle("-fx-background-image: moneylove.jpg");
+
 
 
 //        // create a input stream
@@ -130,8 +135,15 @@ public class CashMachineApp extends Application {
         btnLogIn.setDefaultButton(true);
         btnLogIn.setOnAction(event -> {
 
-            if (loginTF.getText().equals("admin")&&passTF.getText().equals("pass")) {
+            //int id = Integer.parseInt(loginTF.getText());
+            //cashMachine.login(id);
+            Bank bank = new Bank();
+            Integer loginID = Integer.valueOf(loginTF.getText());
+            ActionResult<AccountData> account = bank.getAccountById(loginID);
+            if (!account.equals(null) && account.getPassword().passTF.getText()) {
+//            if (loginTF.getText().equals("")&&passTF.getText().equals("")) {
                 areaInfo.setText("Welcome to the ATM");
+
                 loginWindow.close();
                 stage.show();
             }
