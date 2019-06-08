@@ -41,8 +41,7 @@ public class CashMachineApp extends Application {
 
 
         // create a input stream
-        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/java/zipcodeLogo.png");
-
+        FileInputStream input = new FileInputStream("/Users/alexilinykh/projects/CashMachineWeekend/src/main/resources/zipcodeLogo.png");
         // create a image
         Image image = new Image(input);
 
