@@ -1,9 +1,6 @@
 package rocks.zipcode.atm;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,10 +15,7 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.image.Image ;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -31,6 +25,7 @@ public class CashMachineApp extends Application {
 
     private TextArea areaInfo = new TextArea();
     private Stage loginWindow = new Stage();
+    public Stage newForm = new Stage();
     private Stage stage;
 
     private TextField field = new TextField();
@@ -133,9 +128,10 @@ public class CashMachineApp extends Application {
         btnNewAcc.setPadding(new Insets(3));
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
         btnNewAcc.setOnAction(event -> {
-            RegistrationForm newForm = new RegistrationForm();
             try {
-                newForm.start(stage);
+                RegistrationForm form = new RegistrationForm(cashMachine.getBank());
+                newForm.setScene(form.run());
+                newForm.show();
             } catch (Exception e) {
                 e.printStackTrace();
             }
