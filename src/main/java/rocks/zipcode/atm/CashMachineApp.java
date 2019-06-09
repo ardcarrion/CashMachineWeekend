@@ -13,15 +13,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import rocks.zipcode.atm.bank.Account;
-import rocks.zipcode.atm.bank.AccountData;
-import rocks.zipcode.atm.bank.Bank;
+import rocks.zipcode.atm.bank.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image ;
-import rocks.zipcode.atm.bank.Loan;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -135,6 +132,14 @@ public class CashMachineApp extends Application {
         btnNewAcc.setPrefWidth(250);
         btnNewAcc.setPadding(new Insets(3));
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
+        btnNewAcc.setOnAction(event -> {
+            RegistrationForm newForm = new RegistrationForm();
+            try {
+                newForm.start(stage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
 
         String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
@@ -175,7 +180,7 @@ public class CashMachineApp extends Application {
         return secondScene;
     }
 
-    private void printAlert(String header, String prompt) {
+    public void printAlert(String header, String prompt) {
         Alert invalid = new Alert(Alert.AlertType.ERROR);
         invalid.setTitle("Attention!");
         invalid.setHeaderText(header);
