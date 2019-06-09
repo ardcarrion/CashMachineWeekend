@@ -17,10 +17,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image ;
+import rocks.zipcode.atm.bank.Loan;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 /**
  * @author ZipCodeWilmington
@@ -80,11 +82,35 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
         Button btnLoan = new Button("Loan");
-        btnSubmit.setOnAction(e -> {
-            int id = Integer.parseInt(field.getText());
-            cashMachine.login(id);
+        btnLoan.setOnAction(e -> {
+            //int id = Integer.parseInt(field.getText());
+            //cashMachine.login(id);
 
-            areaInfo.setText(cashMachine.toString());
+            //areaInfo.setText(cashMachine.toString());
+
+            TextInputDialog dialog = new TextInputDialog("0");
+            TextInputDialog creditScore = new TextInputDialog("0");
+            dialog.setTitle("Loan Application");
+            dialog.setHeaderText("Look, a Text Input Dialog");
+            dialog.setContentText("Enter loan amount:");
+            creditScore.setContentText("Enter Credit Score:");
+            Optional<String> result = dialog.showAndWait();
+            Optional<String> result2 = creditScore.showAndWait();
+            Double answer = Double.valueOf(result.get());
+            Double answer2 = Double.valueOf(result.get());
+            Loan temp = new Loan(answer,answer2);
+            temp.setIntRate(answer2);
+            if(temp.loanYes(answer,answer2)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Loan Approval Status");
+                alert.setHeaderText(null);
+                alert.setContentText("Congrulations you have been approved for a loan of: "+ temp.getLnAmount() + " Funds have been deposited in your account");
+
+                alert.showAndWait();
+            }
+            System.out.println(temp.getLnAmount());
+            System.out.println(temp.getIntRate());
+
         });
 
         FlowPane flowpane = new FlowPane();
