@@ -44,20 +44,8 @@ public class CashMachineApp extends Application {
         vbox.setStyle("-fx-background-color: #104D63");
         vbox.setPadding(new Insets(30));
 
-        //FileInputStream input = new FileInputStream("src/main/resources/zipcodeLogo.png");
         ImageView logo = new ImageView("zipcodeLogo.png");
         areaInfo.setStyle("-fx-font-size: 30, Arial");
-
-
-        //Image image = new Image(input);
-
-//        Button btnSubmit = new Button("Set Account ID");
-//        btnSubmit.setOnAction(e -> {
-//            int id = Integer.parseInt(field.getText());
-//            cashMachine.login(id);
-//
-//            areaInfo.setText(cashMachine.toString());
-//        });
 
         TextField depositTF = new TextField("0");
         depositTF.setMaxWidth(300);
@@ -114,19 +102,6 @@ public class CashMachineApp extends Application {
         buttons.getChildren().addAll(btnDeposit,btnWithdraw,btnLoan,btnExit);
         buttons.setPadding(new Insets(10));
         buttons.setSpacing(20);
-
-//        FlowPane flowpane = new FlowPane();
-
-//        //flowpane.getChildren().add(btnSubmit);
-//        //flowpane.getChildren().add(new ImageView(image));
-//        flowpane.getChildren().add(btnDeposit);
-//        flowpane.getChildren().add(btnWithdraw);
-//        flowpane.getChildren().add(btnLoan);
-//        flowpane.getChildren().add(btnExit);
-//        flowpane.setHgap(20);
-//        flowpane.setVgap(20);
-//        flowpane.setOrientation(Orientation.VERTICAL);
-
         HBox hBox = new HBox();
         hBox.getChildren().addAll(buttons, textFields);
         hBox.setPadding(new Insets(10,10,10,10));
@@ -135,7 +110,6 @@ public class CashMachineApp extends Application {
     }
 
     private Scene createLoginWindow() {
-        //Label secondLabel = new Label("I'm a Label on new Window");
 
         Label inforLabel = new Label("Provide login information");
         inforLabel.setFont(Font.font("Areal", FontWeight.BOLD, 24));
@@ -160,16 +134,11 @@ public class CashMachineApp extends Application {
         btnNewAcc.setPadding(new Insets(3));
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
 
-
-
-
         Button btnLogIn = new Button("LOG IN");
         btnLogIn.setPrefWidth(250);
         btnLogIn.setDefaultButton(true);
         btnLogIn.setOnAction(event -> {
 
-            //int id = Integer.parseInt(loginTF.getText());
-            //cashMachine.login(id);
             Bank bank = new Bank();
             Integer loginID = Integer.valueOf(loginTF.getText());
             ActionResult<AccountData> account = bank.getAccountById(loginID);
@@ -193,9 +162,6 @@ public class CashMachineApp extends Application {
         VBox vboxLogin = new VBox(10, inforLabel,loginLabel, loginTF, passLabel, passTF,btnLogIn,btnCancel,btnNewAcc);
         vboxLogin.setPadding(new Insets(20));
         vboxLogin.setMargin(btnNewAcc, new Insets(30, 0,0,0));
-
-
-
 
         StackPane secondaryLayout = new StackPane();
         secondaryLayout.getChildren().addAll(vboxLogin);
@@ -223,6 +189,3 @@ public class CashMachineApp extends Application {
         launch(args);
     }
 }
-//Add option when customer tries to withdraw more then they have offer a loan.
-// Buy stocks use random to set stock prices
-//implment tooltips
