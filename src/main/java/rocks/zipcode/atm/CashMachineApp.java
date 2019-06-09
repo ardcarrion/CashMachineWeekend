@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.layout.FlowPane;
+import rocks.zipcode.atm.bank.Loan;
 
 /**
  * @author ZipCodeWilmington
@@ -56,11 +57,8 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
         Button btnLoan = new Button("Loan");
-        btnSubmit.setOnAction(e -> {
-            int id = Integer.parseInt(field.getText());
-            cashMachine.login(id);
-
-            areaInfo.setText(cashMachine.toString());
+        btnLoan.setOnAction(e -> {
+            Loan.main();
         });
 
         FlowPane flowpane = new FlowPane();
