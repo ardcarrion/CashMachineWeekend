@@ -34,7 +34,12 @@ public class Bank {
             return null;
         }
     }
+    public ActionResult<AccountData> loanDep(AccountData accountData, int amount) {
+        Account account = accounts.get(accountData.getId());
+        account.loanUpdate(amount);
 
+        return ActionResult.success(account.getAccountData());
+    }
     public ActionResult<AccountData> deposit(AccountData accountData, int amount) {
         Account account = accounts.get(accountData.getId());
         account.deposit(amount);

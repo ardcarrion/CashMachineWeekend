@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image ;
+import rocks.zipcode.atm.bank.Loan;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -85,12 +86,13 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
         Button btnLoan = new Button("Loan");
-        btnLoan.setPrefWidth(120);
         btnLoan.setOnAction(e -> {
-            int id = Integer.parseInt(field.getText());
-            cashMachine.login(id);
 
-            areaInfo.setText(cashMachine.toString());
+            Loan loanTemp = Loan.LP();
+            int tmp2 = loanTemp.getLnAmount().intValue();
+            cashMachine.loanUpdate(tmp2);
+            cashMachine.deposit(tmp2);
+
         });
 
         VBox textFields = new VBox();
