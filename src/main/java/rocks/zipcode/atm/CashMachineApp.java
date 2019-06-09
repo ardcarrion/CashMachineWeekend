@@ -86,7 +86,7 @@ public class CashMachineApp extends Application {
             withdrawTF.setText("0");
         });
 
-        Button btnExit = new Button("Exit");
+        Button btnExit = new Button("Log Out");
         btnExit.setPrefWidth(120);
         btnExit.setOnAction(e -> {
             cashMachine.exit();
