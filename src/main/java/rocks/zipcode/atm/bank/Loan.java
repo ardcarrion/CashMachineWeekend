@@ -96,6 +96,7 @@ public class Loan {
 
             alert.showAndWait();
             temp.setLoanStatus(false);
+
         }else{ Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Loan Approval Status");
             alert.setHeaderText("Denied");

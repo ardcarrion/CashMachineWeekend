@@ -8,7 +8,7 @@ public final class AccountData {
     private final int id;
     private final String name;
     private final String email;
-    private final Integer loan;
+    private  Integer loan;
     private final int balance;
 
 
@@ -41,6 +41,9 @@ public final class AccountData {
 
 
         return loan;
+    }
+    public void setloanAmount(Integer loan){
+        this.loan = loan;
     }
 
     @Override
