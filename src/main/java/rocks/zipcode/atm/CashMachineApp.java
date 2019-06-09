@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.image.Image ;
+import rocks.zipcode.atm.bank.Loan;
 
 import java.io.File;
 import java.io.FileInputStream;
