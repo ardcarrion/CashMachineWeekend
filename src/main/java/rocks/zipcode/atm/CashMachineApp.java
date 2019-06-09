@@ -1,58 +1,86 @@
 package rocks.zipcode.atm;
 
+import com.sun.tools.corba.se.idl.constExpr.Or;
+import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import rocks.zipcode.atm.bank.Account;
+import rocks.zipcode.atm.bank.AccountData;
 import rocks.zipcode.atm.bank.Bank;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.layout.FlowPane;
-import rocks.zipcode.atm.bank.Loan;
+import javafx.scene.image.Image ;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * @author ZipCodeWilmington
  */
 public class CashMachineApp extends Application {
 
+    private TextArea areaInfo = new TextArea();
+    private Stage loginWindow = new Stage();
+    private Stage stage;
+
     private TextField field = new TextField();
     private CashMachine cashMachine = new CashMachine(new Bank());
 
-    private Parent createContent() {
+    private Parent createContent() throws FileNotFoundException {
         VBox vbox = new VBox(10);
         vbox.setPrefSize(600, 600);
+        vbox.setStyle("-fx-background-color: #104D63");
+        vbox.setPadding(new Insets(30));
 
-        TextArea areaInfo = new TextArea();
+        ImageView logo = new ImageView("zipcodeLogo.png");
+        areaInfo.setStyle("-fx-font-size: 30, Arial");
 
-        Button btnSubmit = new Button("Set Account ID");
-        btnSubmit.setOnAction(e -> {
-            int id = Integer.parseInt(field.getText());
-            cashMachine.login(id);
+        TextField depositTF = new TextField("0");
+        depositTF.setMaxWidth(300);
+        TextField withdrawTF = new TextField("0");
+        depositTF.setMaxWidth(300);
+        TextField loanTF = new TextField("0");
+        depositTF.setMaxWidth(300);
 
-            areaInfo.setText(cashMachine.toString());
-        });
 
         Button btnDeposit = new Button("Deposit");
+        btnDeposit.setPrefWidth(120);
         btnDeposit.setOnAction(e -> {
-            int amount = Integer.parseInt(field.getText());
+            int amount = Integer.parseInt(depositTF.getText());
             cashMachine.deposit(amount);
-
             areaInfo.setText(cashMachine.toString());
+            depositTF.setText("0");
         });
 
         Button btnWithdraw = new Button("Withdraw");
+        btnWithdraw.setPrefWidth(120);
         btnWithdraw.setOnAction(e -> {
-            int amount = Integer.parseInt(field.getText());
+            int amount = Integer.parseInt(withdrawTF.getText());
             cashMachine.withdraw(amount);
 
             areaInfo.setText(cashMachine.toString());
+            withdrawTF.setText("0");
         });
 
-        Button btnExit = new Button("Exit");
+        Button btnExit = new Button("Log Out");
+        btnExit.setPrefWidth(120);
         btnExit.setOnAction(e -> {
             cashMachine.exit();
+            stage.close();
+            loginWindow.show();
+
 
             areaInfo.setText(cashMachine.toString());
         });
@@ -61,27 +89,103 @@ public class CashMachineApp extends Application {
             Loan.main();
         });
 
-        FlowPane flowpane = new FlowPane();
+        VBox textFields = new VBox();
+        textFields.getChildren().addAll(depositTF,withdrawTF,loanTF);
+        textFields.setPadding(new Insets(10,0,0,50));
+        textFields.setSpacing(20);
 
-        flowpane.getChildren().add(btnSubmit);
-        flowpane.getChildren().add(btnDeposit);
-        flowpane.getChildren().add(btnWithdraw);
-        flowpane.getChildren().add(btnExit);
-        flowpane.getChildren().add(btnLoan);
-        vbox.getChildren().addAll(field, flowpane, areaInfo);
+        VBox buttons = new VBox();
+        buttons.getChildren().addAll(btnDeposit,btnWithdraw,btnLoan,btnExit);
+        buttons.setPadding(new Insets(10));
+        buttons.setSpacing(20);
+        HBox hBox = new HBox();
+        hBox.getChildren().addAll(buttons, textFields);
+        hBox.setPadding(new Insets(10,10,10,10));
+        vbox.getChildren().addAll(logo,hBox, areaInfo);
         return vbox;
     }
 
+    private Scene createLoginWindow() {
+
+        Label inforLabel = new Label("Provide login information");
+        inforLabel.setFont(Font.font("Areal", FontWeight.BOLD, 24));
+        Label loginLabel = new Label("login: ");
+        inforLabel.setFont(Font.font("Areal", FontWeight.BOLD, 20));
+        Label passLabel = new Label("password: ");
+        inforLabel.setFont(Font.font("Areal", FontWeight.BOLD, 20));
+
+        TextField loginTF = new TextField();
+        loginTF.setMaxWidth(250);
+        PasswordField passTF = new PasswordField();
+        passTF.setMaxWidth(250);
+
+        Button btnCancel = new Button("CANCEL");
+        btnCancel.setOnAction(event -> {
+            stage.close();
+            loginWindow.close();
+        });
+        btnCancel.setPrefWidth(250);
+        Button btnNewAcc = new Button("create new account");
+        btnNewAcc.setPrefWidth(250);
+        btnNewAcc.setPadding(new Insets(3));
+        btnNewAcc.setStyle("-fx-text-fill: #0000ff");
+
+        Button btnLogIn = new Button("LOG IN");
+        btnLogIn.setPrefWidth(250);
+        btnLogIn.setDefaultButton(true);
+        btnLogIn.setOnAction(event -> {
+
+            Bank bank = new Bank();
+            Integer loginID = Integer.valueOf(loginTF.getText());
+            ActionResult<AccountData> account = bank.getAccountById(loginID);
+            if ((account != null) && account.getData().getPassword().equals(passTF.getText())) {
+//            if (loginTF.getText().equals("")&&passTF.getText().equals("")) {
+                cashMachine.login(loginID);
+                areaInfo.setText(cashMachine.toString());
+                loginWindow.close();
+                stage.show();
+            }
+            else {
+                String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
+                String header = "Login/Password doesn't match";
+                printAlert(header, wrongCredentials);
+            }
+        });
+
+        VBox vboxLogin = new VBox(10, inforLabel,loginLabel, loginTF, passLabel, passTF,btnLogIn,btnCancel,btnNewAcc);
+        vboxLogin.setPadding(new Insets(20));
+        vboxLogin.setMargin(btnNewAcc, new Insets(30, 0,0,0));
+
+        StackPane secondaryLayout = new StackPane();
+        secondaryLayout.getChildren().addAll(vboxLogin);
+        Scene secondScene = new Scene(secondaryLayout, 300, 330);
+
+
+        return secondScene;
+    }
+
+    private void printAlert(String header, String prompt) {
+        Alert invalid = new Alert(Alert.AlertType.ERROR);
+        invalid.setTitle("Attention!");
+        invalid.setHeaderText(header);
+        invalid.setContentText(prompt);
+        invalid.showAndWait();
+    }
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
         stage.setScene(new Scene(createContent()));
-        stage.show();
+        stage.close();
+
+        //login window
+        loginWindow.setTitle("Login Window");
+        loginWindow.setScene(createLoginWindow());
+        loginWindow.show();
+
+        //create new account
     }
 
     public static void main(String[] args) {
         launch(args);
     }
 }
-//Add option when customer tries to withdraw more then they have offer a loan.
-// Buy stocks use random to set stock prices
-//implment tooltips
