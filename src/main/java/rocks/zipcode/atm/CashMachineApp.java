@@ -150,12 +150,9 @@ public class CashMachineApp extends Application {
                 stage.show();
             }
             else {
-
-                Alert wrongCredentials = new Alert(Alert.AlertType.ERROR);
-                wrongCredentials.setTitle("Attention!");
-                wrongCredentials.setHeaderText("Login/Password doesn't match");
-                wrongCredentials.setContentText("Provided information doesn't match our system, \nplease, try again or press cancel to exit");
-                wrongCredentials.showAndWait();
+                String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
+                String header = "Login/Password doesn't match";
+                printAlert(header, wrongCredentials);
             }
         });
 
@@ -171,6 +168,13 @@ public class CashMachineApp extends Application {
         return secondScene;
     }
 
+    private void printAlert(String header, String prompt) {
+        Alert invalid = new Alert(Alert.AlertType.ERROR);
+        invalid.setTitle("Attention!");
+        invalid.setHeaderText(header);
+        invalid.setContentText(prompt);
+        invalid.showAndWait();
+    }
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
