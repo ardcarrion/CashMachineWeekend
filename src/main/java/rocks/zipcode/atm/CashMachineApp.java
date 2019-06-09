@@ -134,26 +134,31 @@ public class CashMachineApp extends Application {
         btnNewAcc.setPadding(new Insets(3));
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
 
+
+        String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
+        String errorHeader = "Login/Password doesn't match";
+
         Button btnLogIn = new Button("LOG IN");
         btnLogIn.setPrefWidth(250);
         btnLogIn.setDefaultButton(true);
         btnLogIn.setOnAction(event -> {
+            try {
+                Integer loginId = Integer.valueOf(loginTF.getText());
+                ActionResult<AccountData> account = cashMachine.getBank().getAccountById(loginId);
+                String password = account.getData().getPassword();
+                if (password.equals(passTF.getText())) {
+                    cashMachine.login(loginId);
+                    areaInfo.setText(cashMachine.toString());
+                    loginWindow.close();
+                    stage.show();
+                } else {
+                    printAlert(errorHeader, wrongCredentials);
+                }
 
-            Bank bank = new Bank();
-            Integer loginID = Integer.valueOf(loginTF.getText());
-            ActionResult<AccountData> account = bank.getAccountById(loginID);
-            if ((account != null) && account.getData().getPassword().equals(passTF.getText())) {
-//            if (loginTF.getText().equals("")&&passTF.getText().equals("")) {
-                cashMachine.login(loginID);
-                areaInfo.setText(cashMachine.toString());
-                loginWindow.close();
-                stage.show();
+            } catch (NumberFormatException | NullPointerException ex) {
+                printAlert("That is not a valid ID", wrongCredentials);
             }
-            else {
-                String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
-                String header = "Login/Password doesn't match";
-                printAlert(header, wrongCredentials);
-            }
+
         });
 
         VBox vboxLogin = new VBox(10, inforLabel,loginLabel, loginTF, passLabel, passTF,btnLogIn,btnCancel,btnNewAcc);

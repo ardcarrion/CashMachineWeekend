@@ -72,4 +72,8 @@ public class CashMachine {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    public Bank getBank() {
+        return bank;
+    }
 }
