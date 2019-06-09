@@ -87,7 +87,12 @@ public class CashMachineApp extends Application {
         });
         Button btnLoan = new Button("Loan");
         btnLoan.setOnAction(e -> {
-            Loan.main();
+
+            Loan loanTemp = Loan.LP();
+            int tmp2 = loanTemp.getLnAmount().intValue();
+            cashMachine.loanUpdate(tmp2);
+            cashMachine.deposit(tmp2);
+
         });
 
         VBox textFields = new VBox();

@@ -46,6 +46,16 @@ public class CashMachine {
             );
         }
     }
+    public void loanUpdate(Integer loan){
+        if (accountData != null) {
+            tryCall(
+                    () -> bank.loanDep(accountData, loan),
+                    update
+            );
+        }
+
+
+    }
 
     public void exit() {
         if (accountData != null) {

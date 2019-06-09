@@ -20,6 +20,11 @@ public abstract class Account {
     public void deposit(int amount) {
         updateBalance(getBalance() + amount);
     }
+    public void loanUpdate(Integer loan){
+        accountData = new AccountData(accountData.getId(), accountData.getName(), accountData.getEmail(),
+                accountData.getPassword(),accountData.getBalance(),loan);
+
+    }
 
     public boolean withdraw(int amount) {
         if (canWithdraw(amount)) {

@@ -72,7 +72,7 @@ public class Loan {
     public Boolean getLoanStatus(){
         return loanStatus;
     }
-    public static void main(){
+    public static Loan LP(){
 
         TextInputDialog dialog = new TextInputDialog("");
         TextInputDialog creditScore = new TextInputDialog("");
@@ -105,9 +105,8 @@ public class Loan {
             alert.showAndWait();
 
         }
-        System.out.println(temp.getLnAmount());
-        System.out.println(temp.getIntRate());
-        System.out.println(temp.loanStatus);
+        return temp;
+
 
 
 
