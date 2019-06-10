@@ -41,6 +41,9 @@ public class Loan {
     }
     public Boolean loanYes(Double lnAmount,Double creditScore){
         boolean approval = false;
+        if(creditScore >850){
+            return false;
+        }
         if(creditScore> 750 && lnAmount <100000){
             approval = true;
         }else if(creditScore< 750 && creditScore> 650 && lnAmount <50000){
