@@ -131,6 +131,7 @@ public class CashMachineApp extends Application {
             try {
                 RegistrationForm form = new RegistrationForm(cashMachine.getBank(), newForm);
                 newForm.setScene(form.run());
+                newForm.setTitle("Create New Account");
                 newForm.show();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -138,8 +139,8 @@ public class CashMachineApp extends Application {
         });
 
 
-        String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
-        String errorHeader = "Login/Password doesn't match";
+        String wrongCredentials = "The information provided doesn't match our system \nPlease try again or press cancel to quit";
+
 
         Button btnLogIn = new Button("LOG IN");
         btnLogIn.setPrefWidth(250);
@@ -152,10 +153,12 @@ public class CashMachineApp extends Application {
                 if (password.equals(passTF.getText())) {
                     cashMachine.login(loginId);
                     areaInfo.setText(cashMachine.toString());
+                    loginTF.clear();
+                    passTF.clear();
                     loginWindow.close();
                     stage.show();
                 } else {
-                    printAlert(errorHeader, wrongCredentials);
+                    printAlert("Login/Password not found", wrongCredentials);
                 }
 
             } catch (NumberFormatException | NullPointerException ex) {

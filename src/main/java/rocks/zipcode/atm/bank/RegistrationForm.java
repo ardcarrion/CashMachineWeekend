@@ -3,8 +3,11 @@ package rocks.zipcode.atm.bank;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -24,14 +27,10 @@ public class RegistrationForm extends CashMachineApp {
 
 
     public Scene run() throws Exception {
-        //stage.setTitle("Create Account");
 
-        // Create the registration form grid pane
         GridPane gridPane = createRegistrationFormPane();
-        // Add UI controls to the registration form grid pane
         addUIControls(gridPane);
-        // Create a scene with registration form grid pane as the root node
-        return new Scene(gridPane, 800, 500);
+        return new Scene(gridPane, 540, 400);
 
     }
 
@@ -39,6 +38,7 @@ public class RegistrationForm extends CashMachineApp {
     private GridPane createRegistrationFormPane() {
         // Instantiate a new Grid Pane
         GridPane gridPane = new GridPane();
+
 
         // Position the pane at the center of the screen, both vertically and horizontally
         gridPane.setAlignment(Pos.CENTER);
@@ -52,13 +52,9 @@ public class RegistrationForm extends CashMachineApp {
         // Set the vertical gap between rows
         gridPane.setVgap(10);
 
-        // Add Column Constraints
-
-        // columnOneConstraints will be applied to all the nodes placed in column one.
         ColumnConstraints columnOneConstraints = new ColumnConstraints(100, 100, Double.MAX_VALUE);
         columnOneConstraints.setHalignment(HPos.RIGHT);
 
-        // columnTwoConstraints will be applied to all the nodes placed in column two.
         ColumnConstraints columnTwoConstrains = new ColumnConstraints(200, 200, Double.MAX_VALUE);
         columnTwoConstrains.setHgrow(Priority.ALWAYS);
 
@@ -68,12 +64,14 @@ public class RegistrationForm extends CashMachineApp {
     }
 
     private void addUIControls(GridPane gridPane) {
-        // Add Header
-        Label headerLabel = new Label("Create New Account");
-        headerLabel.setFont(Font.font("Arial", FontWeight.BOLD, 24));
-        gridPane.add(headerLabel, 0, 0, 2, 1);
-        GridPane.setHalignment(headerLabel, HPos.CENTER);
-        GridPane.setMargin(headerLabel, new Insets(20, 0, 20, 0));
+
+
+        Image image = new Image("zipcodeLogo.png");
+        Node imageNode = new ImageView(image);
+        gridPane.getChildren().add(imageNode);
+        GridPane.setHalignment(imageNode, HPos.LEFT);
+        GridPane.setMargin(imageNode, new Insets(0, 0, 0, 0));
+
 
         // Add Name Label
         Label nameLabel = new Label("Full Name : ");
@@ -113,31 +111,40 @@ public class RegistrationForm extends CashMachineApp {
         GridPane.setMargin(submitButton, new Insets(20, 0, 20, 0));
 
         submitButton.setOnAction(event -> {
-            if (nameField.getText().isEmpty()) {
-                printAlert("Form Error!", "Please enter your name");
+            String name = nameField.getText();
+            String email = emailField.getText();
+            String password = passwordField.getText();
+            if (name.isEmpty() | name.split(" ").length < 2) {
+                printAlert("Error", "Please enter your full name");
                 return;
             }
-            if (emailField.getText().isEmpty()) {
-                printAlert("Form Error!", "Please enter your email id");
+            if (email.isEmpty()) {
+                printAlert("Error", "Please enter your email id");
+                return;
+            }
+            if (!email.contains("@") | !email.contains(".")) {
+                printAlert("Error", "Please enter a valid email address");
                 return;
             }
             if (passwordField.getText().isEmpty()) {
-                printAlert("Form Error!", "Please enter a password");
+                printAlert("Error", "Please enter a password");
                 return;
             }
             Random random = new Random();
             Integer accountId = (random.nextInt(100) + 3) * 1000;
-            String name = nameField.getText();
-            String email = emailField.getText();
-            String password = passwordField.getText();
+
 
             bank.addAccount(accountId, name, email, password);
             nameField.clear();
             emailField.clear();
             passwordField.clear();
             stage.close();
-            String prompt = String.format("Welcome %s\n\tYour login id is %d", nameField.getText(), accountId);
-            printAlert("New Account Created", prompt);
+            String prompt = String.format("%s, your account with login ID %d has been successfully created", name, accountId);
+            Alert accountName = new Alert(Alert.AlertType.INFORMATION);
+            accountName.setTitle("Account Created");
+            accountName.setHeaderText("Account Creation Successful");
+            accountName.setContentText(prompt);
+            accountName.showAndWait();
 
 
         });
