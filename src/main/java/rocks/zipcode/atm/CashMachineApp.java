@@ -1,9 +1,6 @@
 package rocks.zipcode.atm;
 
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,18 +10,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import rocks.zipcode.atm.bank.Account;
-import rocks.zipcode.atm.bank.AccountData;
-import rocks.zipcode.atm.bank.Bank;
+import rocks.zipcode.atm.bank.*;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.image.Image ;
-import rocks.zipcode.atm.bank.Loan;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 /**
@@ -34,6 +25,7 @@ public class CashMachineApp extends Application {
 
     private TextArea areaInfo = new TextArea();
     private Stage loginWindow = new Stage();
+    public Stage newForm = new Stage();
     private Stage stage;
 
     private TextField field = new TextField();
@@ -136,10 +128,20 @@ public class CashMachineApp extends Application {
         btnNewAcc.setPrefWidth(250);
         btnNewAcc.setPadding(new Insets(3));
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
+        btnNewAcc.setOnAction(event -> {
+            try {
+                RegistrationForm form = new RegistrationForm(cashMachine.getBank(), newForm);
+                newForm.setScene(form.run());
+                newForm.setTitle("Create New Account");
+                newForm.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
 
 
-        String wrongCredentials = "Provided information doesn't match our system, \nPlease try again or press cancel to quit";
-        String errorHeader = "Login/Password doesn't match";
+        String wrongCredentials = "The information provided doesn't match our system \nPlease try again or press cancel to quit";
+
 
         Button btnLogIn = new Button("LOG IN");
         btnLogIn.setPrefWidth(250);
@@ -152,10 +154,12 @@ public class CashMachineApp extends Application {
                 if (password.equals(passTF.getText())) {
                     cashMachine.login(loginId);
                     areaInfo.setText(cashMachine.toString());
+                    loginTF.clear();
+                    passTF.clear();
                     loginWindow.close();
                     stage.show();
                 } else {
-                    printAlert(errorHeader, wrongCredentials);
+                    printAlert("Login/Password not found", wrongCredentials);
                 }
 
             } catch (NumberFormatException | NullPointerException ex) {
@@ -176,7 +180,7 @@ public class CashMachineApp extends Application {
         return secondScene;
     }
 
-    private void printAlert(String header, String prompt) {
+    public void printAlert(String header, String prompt) {
         Alert invalid = new Alert(Alert.AlertType.ERROR);
         invalid.setTitle("Attention!");
         invalid.setHeaderText(header);
