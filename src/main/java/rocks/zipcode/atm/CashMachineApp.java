@@ -92,6 +92,7 @@ public class CashMachineApp extends Application {
             int tmp2 = loanTemp.getLnAmount().intValue();
             cashMachine.loanUpdate(tmp2);
             cashMachine.deposit(tmp2);
+            areaInfo.setText(cashMachine.toString());
 
         });
 

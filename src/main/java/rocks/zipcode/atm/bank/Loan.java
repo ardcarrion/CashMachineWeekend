@@ -84,11 +84,13 @@ public class Loan {
         creditScore.setHeaderText("");
         Optional<String> result = dialog.showAndWait();
         Optional<String> result2 = creditScore.showAndWait();
+
         Double answer = Double.valueOf(result.get());
         Double answer2 = Double.valueOf(result.get());
         Loan temp = new Loan(answer,answer2);
         temp.setIntRate(answer2);
-        if(temp.loanYes(answer,answer2)){
+
+        if(temp.loanYes(answer,answer2) && temp.getLoanStatus()){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Loan Approval Status");
             alert.setHeaderText(null);
