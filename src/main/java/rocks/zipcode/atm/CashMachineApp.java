@@ -129,7 +129,7 @@ public class CashMachineApp extends Application {
         btnNewAcc.setStyle("-fx-text-fill: #0000ff");
         btnNewAcc.setOnAction(event -> {
             try {
-                RegistrationForm form = new RegistrationForm(cashMachine.getBank());
+                RegistrationForm form = new RegistrationForm(cashMachine.getBank(), newForm);
                 newForm.setScene(form.run());
                 newForm.show();
             } catch (Exception e) {

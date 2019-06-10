@@ -15,9 +15,11 @@ import java.util.Random;
 
 public class RegistrationForm extends CashMachineApp {
     private Bank bank;
+    private Stage stage;
 
-    public RegistrationForm(Bank bank) {
+    public RegistrationForm(Bank bank, Stage newForm) {
         this.bank = bank;
+        stage = newForm;
     }
 
 
@@ -130,8 +132,12 @@ public class RegistrationForm extends CashMachineApp {
             String password = passwordField.getText();
 
             bank.addAccount(accountId, name, email, password);
+            nameField.clear();
+            emailField.clear();
+            passwordField.clear();
+            stage.close();
             String prompt = String.format("Welcome %s\n\tYour login id is %d", nameField.getText(), accountId);
-            System.out.println(prompt);
+            printAlert("New Account Created", prompt);
 
 
         });
