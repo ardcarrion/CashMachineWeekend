@@ -39,7 +39,7 @@ public class Loan {
     public void setCreditScore(Double creditScore) {
         this.creditScore = creditScore;
     }
-    public Boolean loanYes(Double creditScore,Double lnAmount){
+    public Boolean loanYes(Double lnAmount,Double creditScore){
         boolean approval = false;
         if(creditScore> 750 && lnAmount <100000){
             approval = true;
@@ -86,11 +86,13 @@ public class Loan {
         Optional<String> result2 = creditScore.showAndWait();
 
         Double answer = Double.valueOf(result.get());
-        Double answer2 = Double.valueOf(result.get());
+        Double answer2 = Double.valueOf(result2.get());
+
         Loan temp = new Loan(answer,answer2);
+        System.out.print(answer2);
         temp.setIntRate(answer2);
 
-        if(temp.loanYes(answer,answer2) && temp.getLoanStatus()){
+        if(temp.loanYes(answer,answer2) ){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Loan Approval Status");
             alert.setHeaderText(null);
@@ -103,7 +105,7 @@ public class Loan {
             alert.setTitle("Loan Approval Status");
             alert.setHeaderText("Denied");
             alert.setContentText("Well this is awkward you have been denied");
-
+            temp.setLnAmount(0.0);
             alert.showAndWait();
 
         }

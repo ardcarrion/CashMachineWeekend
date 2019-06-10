@@ -22,7 +22,7 @@ public abstract class Account {
     }
     public void loanUpdate(Integer loan){
         accountData = new AccountData(accountData.getId(), accountData.getName(), accountData.getEmail(),
-                accountData.getPassword(),accountData.getBalance(),loan);
+                accountData.getPassword(),accountData.getBalance(),loan+accountData.getLoanAmount());
 
     }
 
