@@ -59,7 +59,7 @@ public class Bank {
     }
 
     public void addAccount(Integer accountId, String name, String email, String password) {
-        accounts.put(accountId, new BasicAccount(new AccountData(accountId, name, email, password, 500, 0 )));
+        accounts.put(accountId, new BasicAccount(new AccountData(accountId, name, email, password, 0, 0 )));
 
     }
 }
