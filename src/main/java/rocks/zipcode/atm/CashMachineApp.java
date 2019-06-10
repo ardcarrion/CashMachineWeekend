@@ -44,8 +44,8 @@ public class CashMachineApp extends Application {
         depositTF.setMaxWidth(300);
         TextField withdrawTF = new TextField("0");
         depositTF.setMaxWidth(300);
-        TextField loanTF = new TextField("0");
-        depositTF.setMaxWidth(300);
+//        TextField loanTF = new TextField("0");
+//        depositTF.setMaxWidth(300);
 
 
         Button btnDeposit = new Button("Deposit");
@@ -78,6 +78,7 @@ public class CashMachineApp extends Application {
             areaInfo.setText(cashMachine.toString());
         });
         Button btnLoan = new Button("Loan");
+        btnLoan.setPrefWidth(120);
         btnLoan.setOnAction(e -> {
 
             Loan loanTemp = Loan.LP();
@@ -89,7 +90,7 @@ public class CashMachineApp extends Application {
         });
 
         VBox textFields = new VBox();
-        textFields.getChildren().addAll(depositTF,withdrawTF,loanTF);
+        textFields.getChildren().addAll(depositTF,withdrawTF);
         textFields.setPadding(new Insets(10,0,0,50));
         textFields.setSpacing(20);
 
