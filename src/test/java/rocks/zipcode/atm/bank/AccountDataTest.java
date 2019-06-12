@@ -51,7 +51,7 @@ public class AccountDataTest {
     }
 
     @Test
-    public void setloanAmount() {
+    public void setloanAmountTest() {
         Integer expected = 1111;
         accountData.setloanAmount(1111);
         Integer actual = accountData.getLoanAmount();
@@ -59,7 +59,7 @@ public class AccountDataTest {
     }
 
     @Test
-    public void toString1() {
+    public void toString1Test() {
         String actual = accountData.toString();
         String expected = "Account id: " + 7777 + '\n' +
                 "Name: " + "name" + '\n' +
