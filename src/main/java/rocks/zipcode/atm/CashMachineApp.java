@@ -181,13 +181,14 @@ public class CashMachineApp extends Application {
         return secondScene;
     }
 
-    public void printAlert(String header, String prompt) {
+    public static void printAlert(String header, String prompt) {
         Alert invalid = new Alert(Alert.AlertType.ERROR);
         invalid.setTitle("Attention!");
         invalid.setHeaderText(header);
         invalid.setContentText(prompt);
         invalid.showAndWait();
     }
+
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;

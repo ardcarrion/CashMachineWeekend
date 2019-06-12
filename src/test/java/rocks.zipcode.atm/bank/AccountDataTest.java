@@ -2,6 +2,7 @@ package rocks.zipcode.atm.bank;
 
 import org.junit.Assert;
 import org.junit.Test;
+import rocks.zipcode.atm.bank.AccountData;
 
 import static org.junit.Assert.*;
 

@@ -114,40 +114,27 @@ public class RegistrationForm extends CashMachineApp {
             String name = nameField.getText();
             String email = emailField.getText();
             String password = passwordField.getText();
-            if (name.isEmpty() | name.split(" ").length < 2) {
-                printAlert("Error", "Please enter your full name");
-                return;
-            }
-            if (email.isEmpty()) {
-                printAlert("Error", "Please enter your email id");
-                return;
-            }
-            if (!email.contains("@") | !email.contains(".")) {
-                printAlert("Error", "Please enter a valid email address");
-                return;
-            }
-            if (passwordField.getText().isEmpty()) {
-                printAlert("Error", "Please enter a password");
-                return;
-            }
-            Random random = new Random();
-            Integer accountId = (random.nextInt(100) + 3) * 1000;
+            CreateAccount newAccount = new CreateAccount(bank, name, email, password);
+            if (!newAccount.isValidInput()) {
+                CashMachineApp.printAlert("Field error", "Please fill out the fields with valid information");
+            } else {
 
+                nameField.clear();
+                emailField.clear();
+                passwordField.clear();
+                stage.close();
+                String prompt = newAccount.makeAccount();
+                Alert accountName = new Alert(Alert.AlertType.INFORMATION);
+                accountName.setTitle("Account Created");
+                accountName.setHeaderText("Account Creation Successful");
+                accountName.setContentText(prompt);
+                accountName.showAndWait();
 
-            bank.addAccount(accountId, name, email, password);
-            nameField.clear();
-            emailField.clear();
-            passwordField.clear();
-            stage.close();
-            String prompt = String.format("%s, your account with login ID %d has been successfully created", name, accountId);
-            Alert accountName = new Alert(Alert.AlertType.INFORMATION);
-            accountName.setTitle("Account Created");
-            accountName.setHeaderText("Account Creation Successful");
-            accountName.setContentText(prompt);
-            accountName.showAndWait();
-
-
+            }
         });
+
     }
+
+
 }
 
