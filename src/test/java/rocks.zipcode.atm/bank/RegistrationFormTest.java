@@ -100,14 +100,22 @@ public class RegistrationFormTest {
     }
     @Test
     public void makeAccountTest2() {
-        String name = "Bob Rob";
+        String name = "BobRob";
         String password = "password";
         String email = "default@gmail.com";
         Bank bank = new Bank();
         CreateAccount account = new CreateAccount(bank, name, email, password);
         String actual = account.makeAccount();
-        int id = account.getId();
-        String expected = String.format("%s your account has been successfully created with id %d", name, id);
-        Assert.assertEquals(expected, actual);
+        Assert.assertNull(actual);
+    }
+    @Test
+    public void makeAccountTest3() {
+        String name = "Bob Rob";
+        String password = "password";
+        String email = "default@gmailom";
+        Bank bank = new Bank();
+        CreateAccount account = new CreateAccount(bank, name, email, password);
+        String actual = account.makeAccount();
+        Assert.assertNull(actual);
     }
 }

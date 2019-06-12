@@ -53,6 +53,7 @@ public class CreateAccount {
     public String makeAccount() {
         Integer id = getNewAccountID();
         this.id = id;
+        if (!isValidInput()) return null;
         bank.addAccount(id, name, email, password);
         return String.format("%s your account has been successfully created with id %d", name, id);
     }
