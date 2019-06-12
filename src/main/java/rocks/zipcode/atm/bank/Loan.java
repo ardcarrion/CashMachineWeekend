@@ -48,7 +48,7 @@ public class Loan {
             approval = true;
         }else if(creditScore< 750 && creditScore> 650 && lnAmount <50000){
             approval = true;
-        }else if(creditScore < 650 && lnAmount < 10000){
+        }else if(creditScore > 650 && lnAmount < 10000){
             approval=true;
         }
         return approval;
